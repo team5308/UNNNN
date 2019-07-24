@@ -2,7 +2,7 @@
 
 #include <frc/commands/Subsystem.h>
 #include <frc/WPILib.h>
-
+#include "rev/CANSparkMax.h"
 class underplan : public frc::Subsystem {
  private:
  // yeah
@@ -13,12 +13,12 @@ class underplan : public frc::Subsystem {
 
   static std::shared_ptr<frc::Joystick> joy;
 
-  static std::shared_ptr<frc::Spark> XD1;
-  static std::shared_ptr<frc::Spark> XD2;
-  static std::shared_ptr<frc::Spark> XD3;
-  static std::shared_ptr<frc::Spark> XD4;
-  static std::shared_ptr<frc::Spark> XD5;
-  static std::shared_ptr<frc::Spark> XD6;
+  static std::shared_ptr<rev::CANSparkMax> XD1;
+  static std::shared_ptr<rev::CANSparkMax> XD2;
+  static std::shared_ptr<rev::CANSparkMax> XD3;
+  static std::shared_ptr<rev::CANSparkMax> XD4;
+  static std::shared_ptr<rev::CANSparkMax> XD5;
+  static std::shared_ptr<rev::CANSparkMax> XD6;
 
   static std::shared_ptr<frc::SpeedControllerGroup> scgU1;
   static std::shared_ptr<frc::SpeedControllerGroup> scgU2;

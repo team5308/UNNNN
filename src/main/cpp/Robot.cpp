@@ -4,14 +4,18 @@
 /* must be accompanied by the FIRST BSD license file in the root directory of */
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
-
+#include <iostream>
 #include "Robot.h"
 
 #include <frc/commands/Scheduler.h>
 #include <frc/smartdashboard/SmartDashboard.h>
 
+using std::cout;
+using std::endl;
+
 ExampleSubsystem Robot::m_subsystem;
 OI Robot::m_oi;
+underplan Robot::m_underplan;
 
 void Robot::RobotInit() {
   m_chooser.SetDefaultOption("Default Auto", &m_defaultAuto);
@@ -27,7 +31,9 @@ void Robot::RobotInit() {
  * <p> This runs after the mode specific periodic functions, but before
  * LiveWindow and SmartDashboard integrated updating.
  */
-void Robot::RobotPeriodic() {}
+void Robot::RobotPeriodic() {
+  cout<<"NMSLs"<<endl;
+}
 
 /**
  * This function is called once each time the robot enters Disabled mode. You

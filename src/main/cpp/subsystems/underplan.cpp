@@ -39,10 +39,10 @@ inline double abs(double x)
   if(x < 0.0)
 
   {
-  return -x;
+  return -x*0.6;
  }else
  {
-  return x;
+  return x*0.6;
  }
 }
 
@@ -53,7 +53,7 @@ double suoqu(double x)
     return 0.0;
   }else
   {
-    return x;
+    return x*0.6;
   }
 }
 

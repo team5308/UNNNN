@@ -27,31 +27,18 @@ Cargon::Cargon() : Subsystem("Cargon") {
 void Cargon::InitDefaultCommand() {
 }
 
-void Cargon::Periodic() {frc::Joystick joy1(1);
-  while(joy1.GetRawButton(3)){
-        Cargon::catVic -> Set(0.6);
-        Cargon::draSpark -> Set(-0.6);
+void Cargon::Periodic() {
+  if(joy1 -> GetRawButton(2)){
+    Intake();
+  }else if(joy1 -> GetRawButton(1)){
+    Shoot();
+  }else if(joy1 -> GetRawButton(3)){
+    Hatchintake();
+  }else if(joy1 -> GetRawButton(4)){
+    Hatchshoot();
+  }else{
+    stop();
   }
-  while(joy1.GetRawButton(2)){
-        Cargon::catVic -> Set(-0.6);
-        Cargon::draSpark -> Set(0.6);    
-  }
-  while(joy1.GetRawButton(4)){
-        Cargon::hatch -> Set(0.35);
-  }
-  while(joy1.GetRawButton(5)){
-        Cargon::hatch -> Set(-0.35);
-  } 
-  while(joy1.GetRawButton(6)){
-        Cargon::catSpark1 -> Set(0.1);
-  }
-  while(joy1.GetRawButton(7)){
-        Cargon::catSpark1 -> Set(-0.1);
-  } //stupid way for rotating//      
-        Cargon::catVic -> Set(0); 
-        Cargon::draSpark -> Set(0); 
-        Cargon::hatch -> Set(0);  
-        Cargon::catSpark -> Set(0);
 }
 
 double Cargon::calDiff(int target){
@@ -83,12 +70,26 @@ void Cargon::rotate(int target){
   catSpark1, catSpark2 -> Set(0);
 }
 
-void Cargon::catIn(){
+void Cargon::Intake(){
   catVic -> Set(0.6);/*intake*/
   draSpark -> Set(-0.6);
 }
 
-void Cargon::dragonOut(){
+void Cargon::Shoot(){
   draSpark -> Set(0.6);/*Shoot*/
   catVic-> Set(-0.6);
+}
+
+void Cargon::Hatchshoot(){
+  hatch -> Set(0.35);
+}
+
+void Cargon::Hatchintake(){
+  hatch -> Set(-0.35);
+}
+
+void Cargon::stop(){
+  draSpark -> Set(0);
+  catVic -> Set(0);
+  hatch -> Set(0);
 }

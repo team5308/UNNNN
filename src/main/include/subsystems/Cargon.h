@@ -14,8 +14,12 @@ class Cargon : public frc::Subsystem {
   void InitDefaultCommand() override;
   void Periodic() override;
   void rotate(int);
-  void catIn();
-  void dragonOut();
+  void Intake();
+  void Shoot();
+  void Hatchintake();
+  void Hatchshoot();
+  void stop();
+
   double calDiff(int);
 
   static std::shared_ptr<frc::Joystick> joy1;

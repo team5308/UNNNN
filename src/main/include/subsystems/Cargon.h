@@ -27,5 +27,7 @@ class Cargon : public frc::Subsystem {
   static std::shared_ptr<rev::CANSparkMax> catSpark2; 
 
   static std::shared_ptr<rev::CANEncoder> catEncoder;
+
+  static std::shared_ptr<WPI_VictorSPX> hatch;
   
 };

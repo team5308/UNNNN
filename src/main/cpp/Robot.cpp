@@ -16,6 +16,7 @@ using std::endl;
 ExampleSubsystem Robot::m_subsystem;
 OI Robot::m_oi;
 underplan Robot::m_underplan;
+Cargon Robot::m_cargon;
 
 void Robot::RobotInit() {
   m_chooser.SetDefaultOption("Default Auto", &m_defaultAuto);

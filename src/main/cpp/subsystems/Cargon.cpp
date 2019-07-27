@@ -1,5 +1,4 @@
 #include "subsystems/Cargon.h"
-
 std::shared_ptr<frc::Joystick> Cargon::joy1;
 
 std::shared_ptr<rev::CANSparkMax> Cargon::draSpark;
@@ -8,23 +7,51 @@ std::shared_ptr<WPI_VictorSPX> Cargon::catVic;
 std::shared_ptr<rev::CANSparkMax> Cargon::catSpark1; 
 std::shared_ptr<rev::CANSparkMax> Cargon::catSpark2;
 
+std::shared_ptr<WPI_VictorSPX> Cargon::hatch;
+
 std::shared_ptr<rev::CANEncoder> Cargon::catEncoder;
 Cargon::Cargon() : Subsystem("Cargon") {
   //Joystick Unfinished
   joy1.reset(new frc::Joystick(1));
-  draSpark.reset(new rev::CANSparkMax(32, rev::CANSparkMax::MotorType::kBrushless));
+  draSpark.reset(new rev::CANSparkMax(3, rev::CANSparkMax::MotorType::kBrushless));
   // haven't determined the port yet, so these numbers of port are bullshit.// 
-  catVic.reset(new WPI_VictorSPX(8));
-  catSpark1.reset(new rev::CANSparkMax(9, rev::CANSparkMax::MotorType::kBrushless));
-  catSpark2.reset(new rev::CANSparkMax(23, rev::CANSparkMax::MotorType::kBrushless));
+  catVic.reset(new WPI_VictorSPX(36));
+  catSpark1.reset(new rev::CANSparkMax(12, rev::CANSparkMax::MotorType::kBrushless));
+  catSpark2.reset(new rev::CANSparkMax(32, rev::CANSparkMax::MotorType::kBrushless));
 
   catEncoder.reset(new rev::CANEncoder(*catSpark1));
+
+  hatch.reset(new WPI_VictorSPX(37));
 }
 
 void Cargon::InitDefaultCommand() {
 }
 
-void Cargon::Periodic() {
+void Cargon::Periodic() {frc::Joystick joy1(1);
+  while(joy1.GetRawButton(3)){
+        Cargon::catVic -> Set(0.6);
+        Cargon::draSpark -> Set(-0.6);
+  }
+  while(joy1.GetRawButton(2)){
+        Cargon::catVic -> Set(-0.6);
+        Cargon::draSpark -> Set(0.6);    
+  }
+  while(joy1.GetRawButton(4)){
+        Cargon::hatch -> Set(0.35);
+  }
+  while(joy1.GetRawButton(5)){
+        Cargon::hatch -> Set(-0.35);
+  } 
+  while(joy1.GetRawButton(6)){
+        Cargon::catSpark1 -> Set(0.1);
+  }
+  while(joy1.GetRawButton(7)){
+        Cargon::catSpark1 -> Set(-0.1);
+  } //stupid way for rotating//      
+        Cargon::catVic -> Set(0); 
+        Cargon::draSpark -> Set(0); 
+        Cargon::hatch -> Set(0);  
+        Cargon::catSpark -> Set(0);
 }
 
 double Cargon::calDiff(int target){
@@ -48,20 +75,20 @@ double Cargon::calDiff(int target){
 void Cargon::rotate(int target){
   double diff = calDiff(target);
   while(diff > 0){
-    catSpark1, catSpark2 -> Set(1);
+    catSpark1, catSpark2 -> Set(0.1);
   }
   while(diff < 0){
-    catSpark1, catSpark2 -> Set(-1);
+    catSpark1, catSpark2 -> Set(-0.1);
   }
   catSpark1, catSpark2 -> Set(0);
 }
 
 void Cargon::catIn(){
-  catVic -> Set(1);/*intake*/
-  draSpark -> Set(-1);
+  catVic -> Set(0.6);/*intake*/
+  draSpark -> Set(-0.6);
 }
 
 void Cargon::dragonOut(){
-  draSpark -> Set(1);/*Shoot*/
-  catVic-> Set(-1);
+  draSpark -> Set(0.6);/*Shoot*/
+  catVic-> Set(-0.6);
 }

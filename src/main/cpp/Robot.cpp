@@ -10,13 +10,14 @@
 #include <frc/commands/Scheduler.h>
 #include <frc/smartdashboard/SmartDashboard.h>
 
-using std::cout;
-using std::endl;
 
 ExampleSubsystem Robot::m_subsystem;
 OI Robot::m_oi;
 underplan Robot::m_underplan;
 Cargon Robot::m_cargon;
+Hatch Robot::m_hatch;
+Pneumatics Robot::m_pneumatics;
+Elevator Robot::m_elevator;
 
 void Robot::RobotInit() {
   m_chooser.SetDefaultOption("Default Auto", &m_defaultAuto);
@@ -33,7 +34,6 @@ void Robot::RobotInit() {
  * LiveWindow and SmartDashboard integrated updating.
  */
 void Robot::RobotPeriodic() {
-  cout<<"NMSLs"<<endl;
 }
 
 /**

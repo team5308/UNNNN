@@ -16,19 +16,19 @@
 #include "commands/MyAutoCommand.h"
 #include "subsystems/ExampleSubsystem.h"
 #include "subsystems/underplan.h"
-#include "subsystems/Cargon.h"
 #include "subsystems/Hatch.h"
 #include "subsystems/Pneumatics.h"
 #include "subsystems/Elevator.h"
+#include "subsystems/Cargo.h"
 class Robot : public frc::TimedRobot {
  public:
   static ExampleSubsystem m_subsystem;
   static OI m_oi;
   static underplan m_underplan;
-  static Cargon m_cargon;
   static Pneumatics m_pneumatics;
   static Hatch m_hatch;
   static Elevator m_elevator;
+  static Cargo m_cargo;
 
   void RobotInit() override;
   void RobotPeriodic() override;

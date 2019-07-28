@@ -14,10 +14,10 @@
 ExampleSubsystem Robot::m_subsystem;
 OI Robot::m_oi;
 underplan Robot::m_underplan;
-Cargon Robot::m_cargon;
 Hatch Robot::m_hatch;
 Pneumatics Robot::m_pneumatics;
 Elevator Robot::m_elevator;
+Cargo Robot::m_cargo;
 
 void Robot::RobotInit() {
   m_chooser.SetDefaultOption("Default Auto", &m_defaultAuto);

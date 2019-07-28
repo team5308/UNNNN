@@ -10,8 +10,9 @@ class Hatch : public frc::Subsystem
 private:
   std::shared_ptr<frc::DoubleSolenoid> sol_hatch;
   std::shared_ptr<frc::Joystick> joy1;
+ 
+ public:
 
-public:
   Hatch();
   void solReverse();
   void InitDefaultCommand() override;

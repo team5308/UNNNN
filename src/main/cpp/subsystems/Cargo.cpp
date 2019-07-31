@@ -13,7 +13,8 @@ std::shared_ptr<rev::CANEncoder> Cargo::cane_arm;
 std::shared_ptr<frc::SpeedControllerGroup> Cargo::scg_arm;
 std::shared_ptr<frc::Joystick> Cargo::joy1;
 
-Cargo::Cargo() : Subsystem("Cargo"){
+Cargo::Cargo() : Subsystem("Cargo")
+{
   intakeInNeoSpeed = 0.6;
   intakeIn775Speed = 0.6;
 
@@ -51,18 +52,15 @@ double Cargo::takeout()
 
 double Cargo::stop()
 {
-   csm_intake_mac->Set(0.0);
-   vct_intake_btm->Set(ctreMotor::PercentOutput, 0.0);
-
+  csm_intake_mac->Set(0.0);
+  vct_intake_btm->Set(ctreMotor::PercentOutput, 0.0);
 }
 
 double Cargo::cargojoy(double Y)
 {
   joy1->GetY();
-  scg_arm->Set(0.1*Y);
+  scg_arm->Set(0.1 * Y);
 }
- 
-
 
 void Cargo::InitDefaultCommand()
 {
@@ -70,48 +68,57 @@ void Cargo::InitDefaultCommand()
   // SetDefaultCommand(new MySpecialCommand());
 }
 
-void Cargo::Hatch1in(){
-    hatch1->Set(ctreMotor::PercentOutput,0.35);
+void Cargo::Hatch1in()
+{
+  hatch1->Set(ctreMotor::PercentOutput, 0.35);
 }
 
-void Cargo::Hatch1out(){
-    hatch1->Set(ctreMotor::PercentOutput,-0.35);
+void Cargo::Hatch1out()
+{
+  hatch1->Set(ctreMotor::PercentOutput, -0.35);
 }
 
-void Cargo::Periodic(){
-  if(joy1->GetRawButton(2)){
+void Cargo::Periodic()
+{
+  if (joy1->GetRawButton(2))
+  {
     takein();
-    
-   }
-   else if (joy1->GetRawButton(1))
-   {
-   takeout();
-  
-   }
-   else if(joy1->GetRawButton(5))
-   {
-     csm_arm_sub->Set(-0.15);
-     csm_arm_main->Set(0.15);
+  }
+  else if (joy1->GetRawButton(1))
+  {
+    takeout();
+  }
+  else
+  {
+    stop();
+  }
 
-   }
-   else if(joy1->GetRawButton(10))
-   {
-     csm_arm_sub->Set(0.15);
-     csm_arm_main->Set(-0.15);
+  if (joy1->GetRawButton(5))
+  {
+    csm_arm_sub->Set(-0.15);
+    csm_arm_main->Set(0.15);
+  }
+  else if (joy1->GetRawButton(10))
+  {
+    csm_arm_sub->Set(0.15);
+    csm_arm_main->Set(-0.15);
+  }
+  else
+  {
+    csm_arm_sub->Set(0);
+    csm_arm_main->Set(0);
+  }
 
-   }else if(joy1->GetRawButton(3)){
-       Hatch1in();
-   }else if(joy1->GetRawButton(4)){
-       Hatch1out();
-   } 
-   else 
-   {
-     stop();
-     csm_arm_sub->Set(0.0);
-      csm_arm_main->Set(0.0);
-      hatch1->Set(ctreMotor::PercentOutput, 0.0);
-   }
-   
-   
-    
+  if (joy1->GetRawButton(3))
+  {
+    Hatch1in();
+  }
+  else if (joy1->GetRawButton(4))
+  {
+    Hatch1out();
+  }
+  else
+  {
+    hatch1->Set(ctreMotor::PercentOutput, 0.0);
+  }
 }

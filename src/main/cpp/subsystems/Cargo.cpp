@@ -6,7 +6,7 @@ std::shared_ptr<rev::CANSparkMax> Cargo::csm_arm_main;
 std::shared_ptr<rev::CANSparkMax> Cargo::csm_arm_sub;
 
 std::shared_ptr<VictorSPX> Cargo::vct_intake_btm;
-std::shared_ptr<VictorSPX> Cargo::hatch;
+std::shared_ptr<VictorSPX> Cargo::hatch1;
 std::shared_ptr<rev::CANSparkMax> Cargo::csm_intake_mac;
 std::shared_ptr<rev::CANEncoder> Cargo::cane_arm;
 
@@ -32,7 +32,7 @@ Cargo::Cargo() : Subsystem("Cargo"){
   //init Intake
   csm_intake_mac.reset(new rev::CANSparkMax(3, revMotor::kBrushless));
   vct_intake_btm.reset(new VictorSPX(36));
-  hatch.reset(new VictorSPX(37));
+  hatch1.reset(new VictorSPX(37));
 
   joy1.reset(new frc::Joystick(1));
 }
@@ -70,12 +70,12 @@ void Cargo::InitDefaultCommand()
   // SetDefaultCommand(new MySpecialCommand());
 }
 
-void Cargo::Hatchin(){
-    hatch->Set(0.35);
+void Cargo::Hatch1in(){
+    hatch1->Set(ctreMotor::PercentOutput,0.35);
 }
 
-void Cargo::Hatchout(){
-    hatch->Set(-0.35);
+void Cargo::Hatch1out(){
+    hatch1->Set(ctreMotor::PercentOutput,-0.35);
 }
 
 void Cargo::Periodic(){
@@ -100,15 +100,16 @@ void Cargo::Periodic(){
      csm_arm_main->Set(-0.15);
 
    }else if(joy1->GetRawButton(3)){
-       Hatchin();
+       Hatch1in();
    }else if(joy1->GetRawButton(4)){
-       Hatchout();
+       Hatch1out();
    } 
    else 
    {
      stop();
      csm_arm_sub->Set(0.0);
       csm_arm_main->Set(0.0);
+      hatch1->Set(ctreMotor::PercentOutput, 0.0);
    }
    
    

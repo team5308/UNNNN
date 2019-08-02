@@ -1,6 +1,7 @@
 #include "subsystems/underplan.h"
 #include "rev/CANSparkMax.h"
-#include<stdio.h>
+#include <stdio.h>
+
 std::shared_ptr<frc::Joystick> underplan::joy;
 
 std::shared_ptr<rev::CANSparkMax> underplan::XD1;
@@ -15,62 +16,62 @@ std::shared_ptr<frc::SpeedControllerGroup> underplan::scgU2;
 
 std::shared_ptr<frc::DifferentialDrive> underplan::diff;
 
-underplan::underplan() : Subsystem("underplan") {
-joy.reset(new frc::Joystick(0));
+underplan::underplan() : Subsystem("underplan")
+{
+  joy.reset(new frc::Joystick(0));
 
-XD1.reset(new rev::CANSparkMax(6,rev::CANSparkMax::MotorType::kBrushless));
-XD2.reset(new rev::CANSparkMax(32,rev::CANSparkMax::MotorType::kBrushless));
-XD3.reset(new rev::CANSparkMax(31,rev::CANSparkMax::MotorType::kBrushless));
-XD4.reset(new rev::CANSparkMax(28,rev::CANSparkMax::MotorType::kBrushless));  
-XD5.reset(new rev::CANSparkMax(29,rev::CANSparkMax::MotorType::kBrushless));
-XD6.reset(new rev::CANSparkMax(7,rev::CANSparkMax::MotorType::kBrushless));
+  XD1.reset(new rev::CANSparkMax(6, rev::CANSparkMax::MotorType::kBrushless));
+  XD2.reset(new rev::CANSparkMax(32, rev::CANSparkMax::MotorType::kBrushless));
+  XD3.reset(new rev::CANSparkMax(31, rev::CANSparkMax::MotorType::kBrushless));
+  XD4.reset(new rev::CANSparkMax(28, rev::CANSparkMax::MotorType::kBrushless));
+  XD5.reset(new rev::CANSparkMax(29, rev::CANSparkMax::MotorType::kBrushless));
+  XD6.reset(new rev::CANSparkMax(7, rev::CANSparkMax::MotorType::kBrushless));
 
-scgU1 = std::make_shared<frc::SpeedControllerGroup>(*XD1, *XD2, *XD3);
-scgU2 = std::make_shared<frc::SpeedControllerGroup>(*XD4, *XD5, *XD6);
+  scgU1 = std::make_shared<frc::SpeedControllerGroup>(*XD1, *XD2, *XD3);
+  scgU2 = std::make_shared<frc::SpeedControllerGroup>(*XD4, *XD5, *XD6);
 
-diff.reset(new frc::DifferentialDrive (*scgU1, *scgU2));
+  diff.reset(new frc::DifferentialDrive(*scgU1, *scgU2));
 }
 
-
-void underplan::InitDefaultCommand(){
-
+void underplan::InitDefaultCommand()
+{
 }
 inline double abs(double x)
 {
-  if(x >0.0)
-
+  if (x > 0.0)
   {
-  return x*0.7;
- }else
- {
-  return -x*0.7;
- }
+    return x * 0.7;
+  }
+  else
+  {
+    return -x * 0.7;
+  }
 }
 
 double suoqu(double x)
 {
-  if(abs(x) < 0.14)
+  if (abs(x) < 0.14)
   {
     return 0.0;
-  }else
+  }
+  else
   {
-    return -x*0.7;
+    return -x * 0.7;
   }
 }
 
-
-
-
-
-void underplan::Periodic(){
- if(joy->GetRawButton(10))
+void underplan::Periodic()
 {
-diff -> ArcadeDrive( suoqu(joy -> GetY()) , suoqu(joy -> GetX()));
-
-}else
-{
-  diff -> ArcadeDrive( -suoqu(joy -> GetY()) , suoqu(joy -> GetX()));
+  if(joy->GetRawButton(1)) //trigger
+  {
+    diff->ArcadeDrive(0.4,0);
+  }
+  else if (joy->GetRawButton(10))
+  {
+    diff->ArcadeDrive(suoqu(joy->GetY()), suoqu(joy->GetX()));
+  }
+  else
+  {
+    diff->ArcadeDrive(-suoqu(joy->GetY()), suoqu(joy->GetX()));
+  }
 }
-}
-
-

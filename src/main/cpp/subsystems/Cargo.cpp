@@ -88,7 +88,7 @@ void Cargo::Periodic()
   {
     takeout();
   }
-  else
+  else if(!joy1->GetRawButton(kAutoClimbPort))
   {
     stop();
   }
@@ -103,10 +103,9 @@ void Cargo::Periodic()
     csm_arm_sub->Set(0.15);
     csm_arm_main->Set(-0.15);
   }
-  else
+  else if(!joy1->GetRawButton(kAutoClimbPort))
   {
-    csm_arm_sub->Set(0);
-    csm_arm_main->Set(0);
+    scg_arm->Set(0);
   }
 
   if (joy1->GetRawButton(3))

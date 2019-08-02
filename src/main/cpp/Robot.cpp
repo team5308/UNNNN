@@ -19,6 +19,8 @@ Pneumatics Robot::m_pneumatics;
 Elevator Robot::m_elevator;
 Cargo Robot::m_cargo;
 
+frc::Joystick Robot::m_Joystick{0};
+
 void Robot::RobotInit() {
   m_chooser.SetDefaultOption("Default Auto", &m_defaultAuto);
   m_chooser.AddOption("My Auto", &m_myAuto);
@@ -85,9 +87,30 @@ void Robot::TeleopInit() {
   }
 }
 
-void Robot::TeleopPeriodic() { frc::Scheduler::GetInstance()->Run(); }
+void Robot::TeleopPeriodic() 
+{ 
+  if(Cargo::joy1->GetRawButton(16) && m_Joystick.GetRawButton(16))
+  {
+    AutoClimb();
+  }
+  frc::Scheduler::GetInstance()->Run();
+}
 
 void Robot::TestPeriodic() {}
+
+void Robot::AutoClimb()
+{
+  Cargo::scg_arm->Set(0.5);
+  frc::Wait(1.0);
+
+  Cargo::scg_arm->Set(0.1);
+
+  Robot::m_elevator.Out();
+
+  frc::Wait(0.2);
+  
+  Cargo::vct_intake_btm->Set(ctreMotor::PercentOutput, -0.4);
+}
 
 #ifndef RUNNING_FRC_TESTS
 int main() { return frc::StartRobot<Robot>(); }

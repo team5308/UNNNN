@@ -12,9 +12,6 @@
 #include "RobotMap.h"
 
 
-
-
-
 typedef rev::CANSparkMaxLowLevel::MotorType revMotor;
 typedef ctre::phoenix::motorcontrol::ControlMode ctreMotor;
 

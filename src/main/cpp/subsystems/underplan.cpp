@@ -1,5 +1,6 @@
 #include "subsystems/underplan.h"
 #include "rev/CANSparkMax.h"
+#include<stdio.h>
 std::shared_ptr<frc::Joystick> underplan::joy;
 
 std::shared_ptr<rev::CANSparkMax> underplan::XD1;
@@ -39,10 +40,10 @@ inline double abs(double x)
   if(x >0.0)
 
   {
-  return x*0.5;
+  return x*0.7;
  }else
  {
-  return -x*0.5;
+  return -x*0.7;
  }
 }
 
@@ -53,10 +54,23 @@ double suoqu(double x)
     return 0.0;
   }else
   {
-    return -x*0.5;
+    return -x*0.7;
   }
 }
 
+
+
+
+
 void underplan::Periodic(){
+ if(joy->GetRawButton(10))
+{
 diff -> ArcadeDrive( suoqu(joy -> GetY()) , suoqu(joy -> GetX()));
+
+}else
+{
+  diff -> ArcadeDrive( -suoqu(joy -> GetY()) , suoqu(joy -> GetX()));
 }
+}
+
+

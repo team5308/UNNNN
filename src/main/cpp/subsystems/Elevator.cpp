@@ -22,10 +22,10 @@ void Elevator::In(){
 
 void Elevator::Periodic()
 {
-  if(joy1->GetRawButtonPressed(6))
+  if(joy1->GetRawButtonPressed(12))
   {
     Out();
-  }else if(joy1->GetRawButtonPressed(9)){
+  }else if(joy1->GetRawButtonPressed(15)){
     In();
   }
 }

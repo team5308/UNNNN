@@ -14,8 +14,8 @@ std::shared_ptr<frc::SpeedControllerGroup> Cargo::scg_arm;
 std::shared_ptr<frc::Joystick> Cargo::joy1;
 
 Cargo::Cargo() : Subsystem("Cargo"){
-  intakeInNeoSpeed = 0.6;
-  intakeIn775Speed = 0.6;
+  intakeInNeoSpeed = 0.7;
+  intakeIn775Speed = 0.7;
 
   //init Arm
   csm_arm_main.reset(new rev::CANSparkMax(30, revMotor::kBrushless));
@@ -45,8 +45,8 @@ double Cargo::takein()
 
 double Cargo::takeout()
 {
-  csm_intake_mac->Set(intakeInNeoSpeed);
-  vct_intake_btm->Set(ctreMotor::PercentOutput, -intakeIn775Speed);
+  csm_intake_mac->Set(0.4);
+  vct_intake_btm->Set(ctreMotor::PercentOutput, -0.4);
 }
 
 double Cargo::stop()
@@ -90,14 +90,14 @@ void Cargo::Periodic(){
    }
    else if(joy1->GetRawButton(5))
    {
-     csm_arm_sub->Set(-0.15);
-     csm_arm_main->Set(0.15);
+     csm_arm_sub->Set(-0.4);
+     csm_arm_main->Set(0.4);
 
    }
    else if(joy1->GetRawButton(10))
    {
-     csm_arm_sub->Set(0.15);
-     csm_arm_main->Set(-0.15);
+     csm_arm_sub->Set(0.4);
+     csm_arm_main->Set(-0.4);
 
    }else if(joy1->GetRawButton(3)){
        Hatch1in();
